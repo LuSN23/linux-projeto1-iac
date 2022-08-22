@@ -2,13 +2,14 @@
 
 echo "Criando diretórios..."
 #Criação dos diretórios:
-mkdir /publico /adm /ven /sec
+mkdir /publico /adm /ven /sec /clients
 
 echo "Criando grupos..."
 #Criação dos grupos:
 groupadd GRP_ADM 
 groupadd GRP_VEN
 groupadd GRP_SEC
+groupadd GRP_clients
 
 echo "Criando usuários..."
 #Criação dos usuários:
@@ -24,6 +25,9 @@ useradd josefina -c "Josefina das Dores" -m -s /bin/bash -p $(openssl passwd 123
 useradd amanda -c "Amanda Vasconcelos" -m -s /bin/bash -p $(openssl passwd 123)
 useradd rogerio -c "Rogério de Mattos" -m -s /bin/bash -p $(openssl passwd 123)
 
+useradd gustavo -c "Gustavo Coelho" -m -s /bin/bash -p $(openssl passwd 123)
+useradd monica -c "Mônica Campos de Mello" -m -s /bin/bash -p $(openssl passwd 123)
+
 echo "Distribuindo os usuários em seus grupos..."
 #Classificação dos usuários em grupos:
 #GRP_ADM:
@@ -38,6 +42,9 @@ usermod -G GRP_VEN roberto
 usermod -G GRP_SEC josefina
 usermod -G GRP_SEC amanda
 usermod -G GRP_SEC rogerio
+#GRP_clients:
+usermod -G GRP_clients gustavo
+usermod -G GRP_clients monica
 
 echo "Designando as permissões dos diretórios..."
 #/publico:
@@ -48,12 +55,15 @@ chmod 770 /adm
 chmod 770 /ven
 #/sec:
 chmod 770 /sec
+#/clients:
+chmod 705 /clients
 
 echo "Designando o dono dos grupos..."
 #Designando o usuário root como dono de todos os grupos: 
 chown root:GRP_ADM /adm
 chown root:GRP_VEN /ven
 chown root:GRP_SEC /sec
+chown root:GRP_clients /clients
 
 #Finalizando o script:
 echo "Finalizando..."
